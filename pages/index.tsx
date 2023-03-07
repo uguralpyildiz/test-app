@@ -1,67 +1,38 @@
-import React, { useState, useEffect } from "react";
-
-interface WeatherData {
-  name: string;
-  main: {
-    temp: number;
-    humidity: number;
-  };
-  weather: {
-    description: string;
-    icon: string;
-  }[];
-}
-
-const getWeatherData = async (city: string): Promise<WeatherData | null> => {
-  const apiKey = "9baa53aaf5cdf5ee5ca05b5547934424";
-  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-
-  try {
-    const response = await fetch(apiUrl);
-    const data = await response.json();
-
-    if (response.ok) {
-      return data;
-    } else {
-      throw new Error(data.message);
-    }
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-};
+import React, { useState } from "react";
 
 const WeatherDisplay = () => {
-  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
-  const [city, setCity] = useState("bursa");
+  const [inputValue, setInputValue] = useState("");
+  const [todos, setTodos] = useState<string[]>([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getWeatherData(city);
-      if (data !== null) {
-        setWeatherData(data);
-      }
-    };
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+  };
 
-    fetchData();
-  }, [city]);
+  const handleAddTodo = () => {
+    if (inputValue !== "") {
+      setTodos([...todos, inputValue]);
+      setInputValue("");
+    }
+  };
 
   return (
-    <div>
-      {weatherData ? (
-        <>
-          <h2>{weatherData.name} Weather</h2>
-          <p>Temperature: {weatherData.main.temp}°C</p>
-          <p>Humidity: {weatherData.main.humidity}%</p>
-          <p>Description: {weatherData.weather[0].description}</p>
-          <img
-            src={`https://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`}
-            alt={weatherData.weather[0].description}
-          />
-        </>
-      ) : (
-        <p>Loading weather data...</p>
-      )}
+    <div className="app">
+      <div className="todo-container">
+        <input
+          type="text"
+          placeholder="Not yaz..."
+          onChange={handleInputChange}
+          value={inputValue}
+        />
+        <button onClick={handleAddTodo}>Submit</button>
+      </div>
+      <div className="list-container">
+        <div className="list-c">
+          {todos.map((todo, index) => (
+            <div key={index} className="list">{todo}</div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

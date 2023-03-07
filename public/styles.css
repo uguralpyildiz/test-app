@@ -4,46 +4,41 @@
     padding: 0;
     box-sizing: border-box;
 }
-
-input {
+input{
     height: 50px;
-    font-size: 24px;
-    width: 70%;
-    margin-bottom: 15px;
-}
-
-.container{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    width: 700px;
-    margin: auto;
-}
-.bd{
-    height: 250px;
+    padding: 0 15px;
+    width: 80%;
+    border: none;    
+    outline: none;
 }
 button{
-    float: right;
-    width: 150px;
-    background: #fdd2d2;
-    outline: none;
+    background: #0787f0;
     border: none;
-    padding: 8px;
-    border-radius: 8px;
-    box-shadow: 0 0 15px #00000050;
+    height: 50px;
+    width: 20%;
+    color: #fff;
     font-size: 18px;
-    margin: 0 8px;
+    cursor: pointer;
+}
+.todo-container{
+    display: flex;
+    align-items: center;
+    border: 1px solid #0787f0;
+    box-shadow: 0 0 15px #00000020;
+    margin: 20px auto;
+    width: 500px;
 }
 
-li{
-    list-style: none;
-    font-size: 27px;
+.list-container{
+    width: 500px;
+    margin: auto;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 15px #00000020;
+}
+
+.list{
     padding: 15px;
 }
-
-li:nth-last-of-type(odd) {
-    background: #d68989;
-}
-li:nth-last-of-type(even) {
-    background: #f8d3d3;
+.list:nth-of-type(even){
+    background: #dddddd;
 }
